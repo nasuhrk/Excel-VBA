@@ -2,6 +2,42 @@ Attribute VB_Name = "modTool"
 Option Explicit
 
 ' ============================================================
+'  [removeNameDefinition]
+'  - 不要な名前の定義を削除します
+' ============================================================
+Function removeNameDefinition()
+'
+    'エラーを無視 (削除件数に計上しない)
+    On Error Resume Next
+    
+    Dim total As Integer: total = 0
+    Dim cnt As Integer: cnt = 0
+    Dim n As Name
+    
+    For Each n In ActiveWorkbook.Names
+        If n.Visible = False Then
+            n.Visible = True
+        End If
+        
+        If InStr(n.Value, "#REF") > 0 Or InStr(n.Value, "\") > 0 Then
+            '[DEBUG] MsgBox "Name=" & n.name & " Value=" & n.Value
+            n.Delete
+            cnt = cnt + 1
+        End If
+        
+        total = total + 1
+    Next n
+    
+    '結果表示
+    If (0 < cnt) Then
+        MsgBox cnt & " / " & total & " 件の定義を削除しました", vbInformation
+    Else
+        MsgBox "対象はありません", vbInformation
+    End If
+
+End Function
+
+' ============================================================
 '  [checkUnhideSheets]
 '  - 非表示シートをチェックします
 '  - 必要に応じて全てのシートを再表示します
@@ -33,44 +69,9 @@ Function checkUnhideSheets()
     For i = Sheets.Count To 1 Step -1
         If (Sheets(i).Visible = False) Then
             Sheets(i).Visible = True
+            MsgBox Sheets(i).Name & " を再表示しました", vbInformation
         End If
     Next i
-
-End Function
-
-' ============================================================
-'  [removeNameDefinition]
-'  - 不要な名前の定義を削除します
-' ============================================================
-Function removeNameDefinition()
-'
-    'エラーを無視 (削除件数に計上しない)
-    On Error Resume Next
-    
-    Dim total As Integer: total = 0
-    Dim cnt As Integer: cnt = 0
-    Dim n As name
-    
-    For Each n In ActiveWorkbook.Names
-        If n.Visible = False Then
-            n.Visible = True
-        End If
-        
-        If InStr(n.Value, "#REF") > 0 Or InStr(n.Value, "\") > 0 Then
-            '[DEBUG] MsgBox "Name=" & n.name & " Value=" & n.Value
-            n.Delete
-            cnt = cnt + 1
-        End If
-        
-        total = total + 1
-    Next n
-    
-    '結果表示
-    If (0 < cnt) Then
-        MsgBox cnt & " / " & total & "件の定義を削除しました", vbInformation
-    Else
-        MsgBox "対象はありません", vbInformation
-    End If
 
 End Function
 
@@ -100,14 +101,14 @@ Function createSheetList()
     Set wb = ActiveWorkbook
     
     Workbooks.Add
-    Sheets(1).name = "シート名一覧"
+    Sheets(1).Name = "シート名一覧"
     
     For i = 1 To wb.Worksheets.Count
         Cells(i, 1) = i                 '項番
-        Cells(i, 2) = wb.Sheets(i).name 'シート名
+        Cells(i, 2) = wb.Sheets(i).Name 'シート名
     Next
   
-    Columns("A:A").EntireColumn.AutoFit
+    Columns("A:B").EntireColumn.AutoFit
    
     'カーソルをホームポジションに移動
     Cells(1, 1).Select
@@ -120,17 +121,22 @@ End Function
 ' ============================================================
 Function createGraphPaper()
 '
-    '最後尾に追加
+    'シートを追加
     Worksheets.Add
 
     Cells.Select
+    
+    '列の幅を 2 にする
     Selection.ColumnWidth = 2
+    
+    '表示形式は"文字列"
+    Selection.NumberFormatLocal = "@"
     
     'カーソルをホームポジションに移動
     Cells(1, 1).Select
 
     '結果表示
-    MsgBox "作成しました", vbInformation
+    MsgBox ActiveSheet.Name & " を追加しました", vbInformation
 
 End Function
 
@@ -156,7 +162,18 @@ Function removePhoneticCharacters()
     If 0 < cnt Then
         MsgBox cnt & " 件 のふりがなを削除しました", vbInformation
     Else
-        MsgBox "対象はありません", vbInformation
+        Call popupMessage("対象はありません", vbInformation)
     End If
 
 End Function
+
+
+
+
+
+
+
+Function popupMessage(prompt As String, msgboxstyle As vbmsgboxstyle)
+    MsgBox prompt, msgboxstyle, ""
+End Function
+

@@ -8,9 +8,19 @@ Dim display_gridlines As Boolean
 Dim active_window_view(3) As Integer
 
 ' ============================================================
-'  [setシート初期値]
+'  [ExcelFinisher]
 ' ============================================================
-Function setシート初期値()
+Public Sub ExcelFinisher_START()
+'
+    'フォームを表示
+    frmMain.Show vbModeless
+
+End Sub
+
+' ============================================================
+'  [setSheetValue]
+' ============================================================
+Function setSheetValue()
 '
     '目盛線の表示/非表示
     display_gridlines = True '表示
@@ -30,19 +40,9 @@ Function setシート初期値()
 End Function
 
 ' ============================================================
-'  [showフォーム]
+'  [getSheetValue]
 ' ============================================================
-Public Sub showフォーム()
-'
-    'フォームを表示
-    frmMain.Show vbModeless
-
-End Sub
-
-' ============================================================
-'  [getシート設定値]
-' ============================================================
-Function getシート設定値()
+Function getSheetValue()
 '
     '目盛線の表示/非表示
     display_gridlines = ActiveWindow.DisplayGridlines
@@ -50,29 +50,49 @@ Function getシート設定値()
     'アクティブ ウィンドウのビューモード
     active_window_view(0) = ActiveWindow.View
     
-    '表示倍率 (改ページ プレビュー)
-    ActiveWindow.View = xlPageBreakPreview
-    active_window_view(xlPageBreakPreview) = ActiveWindow.zoom
-    
     '表示倍率 (標準)
-    ActiveWindow.View = xlNormalView
-    active_window_view(xlNormalView) = ActiveWindow.zoom
-
-    '//表示倍率 (ページ レイアウト ビュー)
-    '//ActiveWindow.View = xlPageLayoutView
-    '//active_window_view(xlPageLayoutView) = ActiveWindow.Zoom
-
-    'ビューモードを復元
-    ActiveWindow.View = active_window_view(0)
+    If ActiveWindow.View = xlNormalView Then
+        active_window_view(xlNormalView) = ActiveWindow.Zoom
+    End If
+    
+    '表示倍率 (改ページ プレビュー)
+    If ActiveWindow.View = xlPageBreakPreview Then
+        active_window_view(xlPageBreakPreview) = ActiveWindow.Zoom
+    End If
+    
+    '表示倍率 (ページ レイアウト ビュー)
+    If ActiveWindow.View = xlPageLayoutView Then
+        active_window_view(xlPageLayoutView) = ActiveWindow.Zoom
+    End If
+    
+    '結果表示
+    MsgBox "値を取得しました", vbInformation
 
 End Function
 
 ' ============================================================
-'  [getフォーム値]
+'  [setFormValue]
 ' ============================================================
-Function getフォーム値() As Boolean
+Function setFormValue()
 '
-    getフォーム値 = False
+    If active_window_view(0) = xlNormalView Then
+        frmMain.optWindowView1.Value = True
+    Else
+        frmMain.optWindowView2.Value = True
+    End If
+
+    frmMain.txtWindoView1.Text = active_window_view(xlNormalView)
+    frmMain.txtWindoView2.Text = active_window_view(xlPageBreakPreview)
+    frmMain.chkGridlines.Value = display_gridlines
+
+End Function
+
+' ============================================================
+'  [getFormValue]
+' ============================================================
+Function getFormValue() As Boolean
+'
+    getFormValue = False
     
     display_gridlines = frmMain.chkGridlines.Value
     
@@ -88,9 +108,10 @@ Function getフォーム値() As Boolean
     view2 = frmMain.txtWindoView2.Text
     
     If Not (IsNumeric(view1) And IsNumeric(view2)) Then
+    
         '入力値エラー
         MsgBox "入力値を正しく入力してください", vbExclamation
-        getフォーム値 = True
+        getFormValue = True
         
         If Not IsNumeric(view1) Then
             frmMain.txtWindoView1.SetFocus
@@ -109,26 +130,9 @@ Function getフォーム値() As Boolean
 End Function
 
 ' ============================================================
-'  [setフォーム値]
+'  [actionFinisher]
 ' ============================================================
-Function setフォーム値()
-'
-    If active_window_view(0) = xlNormalView Then
-        frmMain.optWindowView1.Value = True
-    Else
-        frmMain.optWindowView2.Value = True
-    End If
-
-    frmMain.txtWindoView1.Text = active_window_view(xlNormalView)
-    frmMain.txtWindoView2.Text = active_window_view(xlPageBreakPreview)
-    frmMain.chkGridlines.Value = display_gridlines
-
-End Function
-
-' ============================================================
-'  [actionシート仕上げ]
-' ============================================================
-Function actionシート仕上げ()
+Function actionFinisher()
 '
     Dim hiddenFlg As Boolean
     Dim i As Integer
@@ -161,7 +165,7 @@ Function actionシート仕上げ()
     Next i
         
     '処理の高速化(オフ)
-    Call screenUpdating(True)
+    Call screenUpdating(False)
     
     '結果表示
     MsgBox "完了しました", vbInformation
@@ -175,22 +179,22 @@ Private Sub sheetCleanup()
 '
     'ページ レイアウト ビュー
     ActiveWindow.View = xlPageLayoutView
-    ActiveWindow.zoom = active_window_view(xlPageLayoutView)
+    ActiveWindow.Zoom = active_window_view(xlPageLayoutView)
     
     If active_window_view(0) = xlNormalView Then
         '改ページ プレビュー
         ActiveWindow.View = xlPageBreakPreview
-        ActiveWindow.zoom = active_window_view(xlPageBreakPreview)
+        ActiveWindow.Zoom = active_window_view(xlPageBreakPreview)
         '標準
         ActiveWindow.View = xlNormalView
-        ActiveWindow.zoom = active_window_view(xlNormalView)
+        ActiveWindow.Zoom = active_window_view(xlNormalView)
     Else
         '標準
         ActiveWindow.View = xlNormalView
-        ActiveWindow.zoom = active_window_view(xlNormalView)
+        ActiveWindow.Zoom = active_window_view(xlNormalView)
         '改ページ プレビュー
         ActiveWindow.View = xlPageBreakPreview
-        ActiveWindow.zoom = active_window_view(xlPageBreakPreview)
+        ActiveWindow.Zoom = active_window_view(xlPageBreakPreview)
     End If
 
     '目盛線(枠線)を非表示
