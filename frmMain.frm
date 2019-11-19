@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmMain 
    Caption         =   "Excel Finisher"
-   ClientHeight    =   3756
+   ClientHeight    =   2808
    ClientLeft      =   108
    ClientTop       =   456
-   ClientWidth     =   6420
+   ClientWidth     =   9432.001
    OleObjectBlob   =   "frmMain.frx":0000
    StartUpPosition =   2  '画面の中央
 End
@@ -19,6 +19,7 @@ Attribute VB_Exposed = False
 Private Sub UserForm_Initialize()
     Call setSheetValue
     Call setFormValue
+    Call setPageList
 End Sub
 
 '========
@@ -67,8 +68,12 @@ Private Sub cmdFunc6_Click()
     Call removePhoneticCharacters
 End Sub
 
-'[修了]ボタン
-Private Sub cmdEnd_Click()
-    End
+'[ページ設定]ボタン
+Private Sub cmdPageSet_Click()
+    Call setPageStyle(frmMain.cmbPageList.ListIndex)
 End Sub
 
+'[修了]ボタン
+'Private Sub cmdEnd_Click()
+'    End
+'End Sub

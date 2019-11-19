@@ -167,12 +167,42 @@ Function removePhoneticCharacters()
 
 End Function
 
+' ============================================================
+'  [setPageStyle]
+'  -
+' ============================================================
+Function setPageStyle(idx As String)
+'
+    'MsgBox (idx)
+    If (0 <= idx And idx <= 2) Then
+        Dim pagedata(2) As Variant
+        
+        pagedata(0) = Array(1, 1, 2, 1.5, 0.8, 0.8, xlLandscape, xlPaperA4)    'Ａ４（横）
+        pagedata(1) = Array(2, 0.5, 1.5, 1.5, 0.8, 0.8, xlPortrait, xlPaperA4) 'Ａ４（縦）
+        pagedata(2) = Array(2, 1, 1.5, 1.5, 0.8, 0.8, xlLandscape, xlPaperA3)  'Ａ３（横）
+    
+        With ActiveSheet.PageSetup
+            .LeftMargin = Application.CentimetersToPoints(pagedata(idx)(0))    'マージン(左)
+            .RightMargin = Application.CentimetersToPoints(pagedata(idx)(1))   'マージン(右)
+            .TopMargin = Application.CentimetersToPoints(pagedata(idx)(2))     'マージン(上)
+            .BottomMargin = Application.CentimetersToPoints(pagedata(idx)(3))  'マージン(下)
+            .HeaderMargin = Application.CentimetersToPoints(pagedata(idx)(4))  'マージン(ヘッダー)
+            .FooterMargin = Application.CentimetersToPoints(pagedata(idx)(5))  'マージン(フッター)
+            .Orientation = pagedata(idx)(6) '印刷の向き
+            .PaperSize = pagedata(idx)(7)   '用紙サイズ
+        End With
+        
+        ActiveSheet.PrintPreview '印刷プレビューを表示
+    Else
+        Call popupMessage("ページ設定を選択してください", vbCritical)
+    End If
 
+End Function
 
-
-
-
-
+' ============================================================
+'  [popupMessage]
+'  - メッセージをポップアップします。
+' ============================================================
 Function popupMessage(prompt As String, msgboxstyle As vbmsgboxstyle)
     MsgBox prompt, msgboxstyle, ""
 End Function

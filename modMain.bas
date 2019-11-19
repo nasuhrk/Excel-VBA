@@ -130,6 +130,21 @@ Function getFormValue() As Boolean
 End Function
 
 ' ============================================================
+'  [setPageList]
+' ============================================================
+Function setPageList()
+'
+    Dim items As Variant
+    
+    items = Array("Ç`ÇSÅiâ°Åj", "Ç`ÇSÅiècÅj", "Ç`ÇRÅiâ°Åj")
+    
+    frmMain.cmbPageList.AddItem (items(0))
+    frmMain.cmbPageList.AddItem (items(1))
+    frmMain.cmbPageList.AddItem (items(2))
+
+End Function
+
+' ============================================================
 '  [actionFinisher]
 ' ============================================================
 Function actionFinisher()
