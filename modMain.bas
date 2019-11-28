@@ -192,10 +192,24 @@ End Function
 ' ============================================================
 Private Sub sheetCleanup()
 '
+    Dim r, c
+
+    'ウィンドウ枠の固定値を確認
+    With ActiveWindow
+        If 1 < .Panes.Count() Then
+            ' 固定位置を取得
+            r = .SplitRow + .Panes(1).ScrollRow
+            c = .SplitColumn + .Panes(1).ScrollColumn
+        Else
+            r = 0
+            c = 0
+        End If
+    End With
+    
     'ページ レイアウト ビュー
     ActiveWindow.View = xlPageLayoutView
     ActiveWindow.Zoom = active_window_view(xlPageLayoutView)
-    
+   
     If active_window_view(0) = xlNormalView Then
         '改ページ プレビュー
         ActiveWindow.View = xlPageBreakPreview
@@ -210,6 +224,12 @@ Private Sub sheetCleanup()
         '改ページ プレビュー
         ActiveWindow.View = xlPageBreakPreview
         ActiveWindow.Zoom = active_window_view(xlPageBreakPreview)
+    End If
+
+    'ウィンドウ枠の固定値を復元
+    If r <> 0 And c <> 0 Then
+        Cells(r, c).Select
+        ActiveWindow.FreezePanes = True
     End If
 
     '目盛線(枠線)を非表示

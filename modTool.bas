@@ -147,7 +147,7 @@ End Function
 Function removePhoneticCharacters()
 '
     Dim cnt As Integer: cnt = 0
-    Dim r As range
+    Dim r As Range
     
     For Each r In Selection
         '空欄は対象外
@@ -177,9 +177,9 @@ Function setPageStyle(idx As String)
     If (0 <= idx And idx <= 2) Then
         Dim pagedata(2) As Variant
         
-        pagedata(0) = Array(1, 1, 2, 1.5, 0.8, 0.8, xlLandscape, xlPaperA4)    'Ａ４（横）
-        pagedata(1) = Array(2, 0.5, 1.5, 1.5, 0.8, 0.8, xlPortrait, xlPaperA4) 'Ａ４（縦）
-        pagedata(2) = Array(2, 1, 1.5, 1.5, 0.8, 0.8, xlLandscape, xlPaperA3)  'Ａ３（横）
+        pagedata(0) = Array(1, 1, 2, 1.5, 0.8, 0.8, xlLandscape, xlPaperA4, 1, False)  'Ａ４（横）
+        pagedata(1) = Array(2, 0.5, 1.5, 1.5, 0.8, 0.8, xlPortrait, xlPaperA4, False, 1) 'Ａ４（縦）
+        pagedata(2) = Array(2, 1, 1.5, 1.5, 0.8, 0.8, xlLandscape, xlPaperA3, 1, False) 'Ａ３（横）
     
         With ActiveSheet.PageSetup
             .LeftMargin = Application.CentimetersToPoints(pagedata(idx)(0))    'マージン(左)
@@ -188,8 +188,10 @@ Function setPageStyle(idx As String)
             .BottomMargin = Application.CentimetersToPoints(pagedata(idx)(3))  'マージン(下)
             .HeaderMargin = Application.CentimetersToPoints(pagedata(idx)(4))  'マージン(ヘッダー)
             .FooterMargin = Application.CentimetersToPoints(pagedata(idx)(5))  'マージン(フッター)
-            .Orientation = pagedata(idx)(6) '印刷の向き
-            .PaperSize = pagedata(idx)(7)   '用紙サイズ
+            .Orientation = pagedata(idx)(6)    '印刷の向き
+            .PaperSize = pagedata(idx)(7)      '用紙サイズ
+            .FitToPagesWide = pagedata(idx)(8) '横幅に合わせる
+            .FitToPagesTall = pagedata(idx)(9) '縦幅に合わせる
         End With
         
         ActiveSheet.PrintPreview '印刷プレビューを表示
