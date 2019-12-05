@@ -190,6 +190,7 @@ Function setPageStyle(idx As String)
             .FooterMargin = Application.CentimetersToPoints(pagedata(idx)(5))  'マージン(フッター)
             .Orientation = pagedata(idx)(6)    '印刷の向き
             .PaperSize = pagedata(idx)(7)      '用紙サイズ
+            .Zoom = False          '---拡大・縮小率を指定しない
             .FitToPagesWide = pagedata(idx)(8) '横幅に合わせる
             .FitToPagesTall = pagedata(idx)(9) '縦幅に合わせる
         End With
