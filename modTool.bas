@@ -3,11 +3,11 @@ Option Explicit
 
 ' ============================================================
 '  [removeNameDefinition]
-'  - •s—v‚È–¼‘O‚Ì’è‹`‚ğíœ‚µ‚Ü‚·
+'  - ä¸è¦ãªåå‰ã®å®šç¾©ã‚’å‰Šé™¤ã—ã¾ã™
 ' ============================================================
 Function removeNameDefinition()
 '
-    'ƒGƒ‰[‚ğ–³‹ (íœŒ”‚ÉŒvã‚µ‚È‚¢)
+    'ã‚¨ãƒ©ãƒ¼ã‚’ç„¡è¦– (å‰Šé™¤ä»¶æ•°ã«è¨ˆä¸Šã—ãªã„)
     On Error Resume Next
     
     Dim total As Integer: total = 0
@@ -28,19 +28,19 @@ Function removeNameDefinition()
         total = total + 1
     Next n
     
-    'Œ‹‰Ê•\¦
+    'çµæœè¡¨ç¤º
     If (0 < cnt) Then
-        MsgBox cnt & " / " & total & " Œ‚Ì’è‹`‚ğíœ‚µ‚Ü‚µ‚½", vbInformation
+        MsgBox cnt & " / " & total & " ä»¶ã®å®šç¾©ã‚’å‰Šé™¤ã—ã¾ã—ãŸ", vbInformation
     Else
-        MsgBox "‘ÎÛ‚Í‚ ‚è‚Ü‚¹‚ñ", vbInformation
+        MsgBox "å¯¾è±¡ã¯ã‚ã‚Šã¾ã›ã‚“", vbInformation
     End If
 
 End Function
 
 ' ============================================================
 '  [checkUnhideSheets]
-'  - ”ñ•\¦ƒV[ƒg‚ğƒ`ƒFƒbƒN‚µ‚Ü‚·
-'  - •K—v‚É‰‚¶‚Ä‘S‚Ä‚ÌƒV[ƒg‚ğÄ•\¦‚µ‚Ü‚·
+'  - éè¡¨ç¤ºã‚·ãƒ¼ãƒˆã‚’ãƒã‚§ãƒƒã‚¯ã—ã¾ã™
+'  - å¿…è¦ã«å¿œã˜ã¦å…¨ã¦ã®ã‚·ãƒ¼ãƒˆã‚’å†è¡¨ç¤ºã—ã¾ã™
 ' ============================================================
 Function checkUnhideSheets()
 '
@@ -56,11 +56,11 @@ Function checkUnhideSheets()
     Next i
     
     If cnt = 0 Then
-        MsgBox "‘ÎÛ‚Í‚ ‚è‚Ü‚¹‚ñ", vbInformation
+        MsgBox "å¯¾è±¡ã¯ã‚ã‚Šã¾ã›ã‚“", vbInformation
         Exit Function
     End If
 
-    If vbNo = MsgBox("”ñ•\¦‚Í" & cnt & "ƒV[ƒg‚Å‚·B‘S‚Ä‚ÌƒV[ƒg‚ğÄ•\¦‚µ‚Ü‚·‚©H", vbYesNo + vbDefaultButton2) Then
+    If vbNo = MsgBox("éè¡¨ç¤ºã¯" & cnt & "ã‚·ãƒ¼ãƒˆã§ã™ã€‚å…¨ã¦ã®ã‚·ãƒ¼ãƒˆã‚’å†è¡¨ç¤ºã—ã¾ã™ã‹ï¼Ÿ", vbYesNo + vbDefaultButton2) Then
         Exit Function
     End If
 
@@ -69,7 +69,7 @@ Function checkUnhideSheets()
     For i = Sheets.Count To 1 Step -1
         If (Sheets(i).Visible = False) Then
             Sheets(i).Visible = True
-            MsgBox Sheets(i).Name & " ‚ğÄ•\¦‚µ‚Ü‚µ‚½", vbInformation
+            MsgBox Sheets(i).Name & " ã‚’å†è¡¨ç¤ºã—ã¾ã—ãŸ", vbInformation
         End If
     Next i
 
@@ -77,21 +77,21 @@ End Function
 
 ' ============================================================
 '  [resetAllPageBreaks]
-'  - ‰üƒy[ƒW‚ğ‰ğœ‚µ‚Ü‚·
+'  - æ”¹ãƒšãƒ¼ã‚¸ã‚’è§£é™¤ã—ã¾ã™
 ' ============================================================
 Function resetAllPageBreaks()
 '
-    '‘S‚Ä‚Ì‰üƒy[ƒW‰ğœ
+    'å…¨ã¦ã®æ”¹ãƒšãƒ¼ã‚¸è§£é™¤
     ActiveSheet.resetAllPageBreaks
 
-    'Œ‹‰Ê•\¦
-    MsgBox "Š®—¹‚µ‚Ü‚µ‚½", vbInformation
+    'çµæœè¡¨ç¤º
+    MsgBox "å®Œäº†ã—ã¾ã—ãŸ", vbInformation
 
 End Function
 
 ' ============================================================
 '  [createSheetList]
-'  - ƒV[ƒg–¼‚Ìˆê——‚ğì¬‚µ‚Ü‚·
+'  - ã‚·ãƒ¼ãƒˆåã®ä¸€è¦§ã‚’ä½œæˆã—ã¾ã™
 ' ============================================================
 Function createSheetList()
 '
@@ -101,48 +101,49 @@ Function createSheetList()
     Set wb = ActiveWorkbook
     
     Workbooks.Add
-    Sheets(1).Name = "ƒV[ƒg–¼ˆê——"
+    Sheets(1).Name = "ã‚·ãƒ¼ãƒˆåä¸€è¦§"
     
     For i = 1 To wb.Worksheets.Count
-        Cells(i, 1) = i                 '€”Ô
-        Cells(i, 2) = wb.Sheets(i).Name 'ƒV[ƒg–¼
+        Cells(i, 1) = i                 'é …ç•ª
+        Cells(i, 2).NumberFormatLocal = "@" 'æ›¸å¼è¨­å®š (æ–‡å­—åˆ—)
+        Cells(i, 2) = wb.Sheets(i).Name 'ã‚·ãƒ¼ãƒˆå
     Next
   
     Columns("A:B").EntireColumn.AutoFit
    
-    'ƒJ[ƒ\ƒ‹‚ğƒz[ƒ€ƒ|ƒWƒVƒ‡ƒ“‚ÉˆÚ“®
+    'ã‚«ãƒ¼ã‚½ãƒ«ã‚’ãƒ›ãƒ¼ãƒ ãƒã‚¸ã‚·ãƒ§ãƒ³ã«ç§»å‹•
     Cells(1, 1).Select
 
 End Function
 
 ' ============================================================
 '  [createGraphPaper]
-'  - •ûŠá†‚ğì¬‚µ‚Ü‚·
+'  - æ–¹çœ¼ç´™ã‚’ä½œæˆã—ã¾ã™
 ' ============================================================
 Function createGraphPaper()
 '
-    'ƒV[ƒg‚ğ’Ç‰Á
+    'ã‚·ãƒ¼ãƒˆã‚’è¿½åŠ 
     Worksheets.Add
 
     Cells.Select
     
-    '—ñ‚Ì•‚ğ 2 ‚É‚·‚é
+    'åˆ—ã®å¹…ã‚’ 2 ã«ã™ã‚‹
     Selection.ColumnWidth = 2
     
-    '•\¦Œ`®‚Í"•¶š—ñ"
+    'è¡¨ç¤ºå½¢å¼ã¯"æ–‡å­—åˆ—"
     Selection.NumberFormatLocal = "@"
     
-    'ƒJ[ƒ\ƒ‹‚ğƒz[ƒ€ƒ|ƒWƒVƒ‡ƒ“‚ÉˆÚ“®
+    'ã‚«ãƒ¼ã‚½ãƒ«ã‚’ãƒ›ãƒ¼ãƒ ãƒã‚¸ã‚·ãƒ§ãƒ³ã«ç§»å‹•
     Cells(1, 1).Select
 
-    'Œ‹‰Ê•\¦
-    MsgBox ActiveSheet.Name & " ‚ğ’Ç‰Á‚µ‚Ü‚µ‚½", vbInformation
+    'çµæœè¡¨ç¤º
+    MsgBox ActiveSheet.Name & " ã‚’è¿½åŠ ã—ã¾ã—ãŸ", vbInformation
 
 End Function
 
 ' ============================================================
 '  [removePhoneticCharacters]
-'  - ‘I‘ğ”ÍˆÍ‚Ì‚Ó‚è‚ª‚È‚ğ‚Ü‚Æ‚ß‚Äíœ‚µ‚Ü‚·
+'  - é¸æŠç¯„å›²ã®ãµã‚ŠãŒãªã‚’ã¾ã¨ã‚ã¦å‰Šé™¤ã—ã¾ã™
 ' ============================================================
 Function removePhoneticCharacters()
 '
@@ -150,7 +151,7 @@ Function removePhoneticCharacters()
     Dim r As Range
     
     For Each r In Selection
-        '‹ó—“‚Í‘ÎÛŠO
+        'ç©ºæ¬„ã¯å¯¾è±¡å¤–
         If r.Value <> "" Then
             If r.Characters.PhoneticCharacters <> "" Then
                 r.Characters.PhoneticCharacters = ""
@@ -160,9 +161,9 @@ Function removePhoneticCharacters()
     Next r
     
     If 0 < cnt Then
-        MsgBox cnt & " Œ ‚Ì‚Ó‚è‚ª‚È‚ğíœ‚µ‚Ü‚µ‚½", vbInformation
+        MsgBox cnt & " ä»¶ ã®ãµã‚ŠãŒãªã‚’å‰Šé™¤ã—ã¾ã—ãŸ", vbInformation
     Else
-        Call popupMessage("‘ÎÛ‚Í‚ ‚è‚Ü‚¹‚ñ", vbInformation)
+        Call popupMessage("å¯¾è±¡ã¯ã‚ã‚Šã¾ã›ã‚“", vbInformation)
     End If
 
 End Function
@@ -177,34 +178,34 @@ Function setPageStyle(idx As String)
     If (0 <= idx And idx <= 2) Then
         Dim pagedata(2) As Variant
         
-        pagedata(0) = Array(1, 1, 2, 1.5, 0.8, 0.8, xlLandscape, xlPaperA4, 1, False)  '‚`‚Si‰¡j
-        pagedata(1) = Array(2, 0.5, 1.5, 1.5, 0.8, 0.8, xlPortrait, xlPaperA4, False, 1) '‚`‚Sicj
-        pagedata(2) = Array(2, 1, 1.5, 1.5, 0.8, 0.8, xlLandscape, xlPaperA3, 1, False) '‚`‚Ri‰¡j
+        pagedata(0) = Array(1, 1, 2, 1.5, 0.8, 0.8, xlLandscape, xlPaperA4, 1, False)  'ï¼¡ï¼”ï¼ˆæ¨ªï¼‰
+        pagedata(1) = Array(2, 0.5, 1.5, 1.5, 0.8, 0.8, xlPortrait, xlPaperA4, False, 1) 'ï¼¡ï¼”ï¼ˆç¸¦ï¼‰
+        pagedata(2) = Array(2, 1, 1.5, 1.5, 0.8, 0.8, xlLandscape, xlPaperA3, 1, False) 'ï¼¡ï¼“ï¼ˆæ¨ªï¼‰
     
         With ActiveSheet.PageSetup
-            .LeftMargin = Application.CentimetersToPoints(pagedata(idx)(0))    'ƒ}[ƒWƒ“(¶)
-            .RightMargin = Application.CentimetersToPoints(pagedata(idx)(1))   'ƒ}[ƒWƒ“(‰E)
-            .TopMargin = Application.CentimetersToPoints(pagedata(idx)(2))     'ƒ}[ƒWƒ“(ã)
-            .BottomMargin = Application.CentimetersToPoints(pagedata(idx)(3))  'ƒ}[ƒWƒ“(‰º)
-            .HeaderMargin = Application.CentimetersToPoints(pagedata(idx)(4))  'ƒ}[ƒWƒ“(ƒwƒbƒ_[)
-            .FooterMargin = Application.CentimetersToPoints(pagedata(idx)(5))  'ƒ}[ƒWƒ“(ƒtƒbƒ^[)
-            .Orientation = pagedata(idx)(6)    'ˆóü‚ÌŒü‚«
-            .PaperSize = pagedata(idx)(7)      '—p†ƒTƒCƒY
-            .Zoom = False          '---Šg‘åEk¬—¦‚ğw’è‚µ‚È‚¢
-            .FitToPagesWide = pagedata(idx)(8) '‰¡•‚É‡‚í‚¹‚é
-            .FitToPagesTall = pagedata(idx)(9) 'c•‚É‡‚í‚¹‚é
+            .LeftMargin = Application.CentimetersToPoints(pagedata(idx)(0))    'ãƒãƒ¼ã‚¸ãƒ³(å·¦)
+            .RightMargin = Application.CentimetersToPoints(pagedata(idx)(1))   'ãƒãƒ¼ã‚¸ãƒ³(å³)
+            .TopMargin = Application.CentimetersToPoints(pagedata(idx)(2))     'ãƒãƒ¼ã‚¸ãƒ³(ä¸Š)
+            .BottomMargin = Application.CentimetersToPoints(pagedata(idx)(3))  'ãƒãƒ¼ã‚¸ãƒ³(ä¸‹)
+            .HeaderMargin = Application.CentimetersToPoints(pagedata(idx)(4))  'ãƒãƒ¼ã‚¸ãƒ³(ãƒ˜ãƒƒãƒ€ãƒ¼)
+            .FooterMargin = Application.CentimetersToPoints(pagedata(idx)(5))  'ãƒãƒ¼ã‚¸ãƒ³(ãƒ•ãƒƒã‚¿ãƒ¼)
+            .Orientation = pagedata(idx)(6)    'å°åˆ·ã®å‘ã
+            .PaperSize = pagedata(idx)(7)      'ç”¨ç´™ã‚µã‚¤ã‚º
+            .Zoom = False          '---æ‹¡å¤§ãƒ»ç¸®å°ç‡ã‚’æŒ‡å®šã—ãªã„
+            .FitToPagesWide = pagedata(idx)(8) 'æ¨ªå¹…ã«åˆã‚ã›ã‚‹
+            .FitToPagesTall = pagedata(idx)(9) 'ç¸¦å¹…ã«åˆã‚ã›ã‚‹
         End With
         
-        ActiveSheet.PrintPreview 'ˆóüƒvƒŒƒrƒ…[‚ğ•\¦
+        ActiveSheet.PrintPreview 'å°åˆ·ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’è¡¨ç¤º
     Else
-        Call popupMessage("ƒy[ƒWİ’è‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢", vbCritical)
+        Call popupMessage("ãƒšãƒ¼ã‚¸è¨­å®šã‚’é¸æŠã—ã¦ãã ã•ã„", vbCritical)
     End If
 
 End Function
 
 ' ============================================================
 '  [popupMessage]
-'  - ƒƒbƒZ[ƒW‚ğƒ|ƒbƒvƒAƒbƒv‚µ‚Ü‚·B
+'  - ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã—ã¾ã™ã€‚
 ' ============================================================
 Function popupMessage(prompt As String, msgboxstyle As vbmsgboxstyle)
     MsgBox prompt, msgboxstyle, ""
