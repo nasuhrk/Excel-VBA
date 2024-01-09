@@ -1,12 +1,12 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmMain 
    Caption         =   "Excel Finisher"
-   ClientHeight    =   2808
-   ClientLeft      =   108
-   ClientTop       =   456
-   ClientWidth     =   9432.001
+   ClientHeight    =   4365
+   ClientLeft      =   105
+   ClientTop       =   450
+   ClientWidth     =   7755
    OleObjectBlob   =   "frmMain.frx":0000
-   StartUpPosition =   2  '‰æ–Ê‚Ì’†‰›
+   StartUpPosition =   2  'ç”»é¢ã®ä¸­å¤®
 End
 Attribute VB_Name = "frmMain"
 Attribute VB_GlobalNameSpace = False
@@ -14,66 +14,77 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '================
-' ƒtƒH[ƒ€‰Šú‰»
+' ãƒ•ã‚©ãƒ¼ãƒ åˆæœŸåŒ–
 '================
 Private Sub UserForm_Initialize()
     Call setSheetValue
     Call setFormValue
     Call setPageList
+'    Application.OnKey "{ESCAPE}", "cmdEnd_Click"
 End Sub
 
 '========
-' ƒ{ƒ^ƒ“
+' ãƒœã‚¿ãƒ³
 '========
-'[‚±‚ÌƒV[ƒg‚Ìİ’èæ“¾]ƒ{ƒ^ƒ“
+'[ã“ã®ã‚·ãƒ¼ãƒˆã®è¨­å®šå–å¾—]ãƒœã‚¿ãƒ³
 Private Sub cmdGetValue_Click()
     Call getSheetValue
     Call setFormValue
 End Sub
 
-'[‘SƒV[ƒg“ˆê]ƒ{ƒ^ƒ“
+'[å…¨ã‚·ãƒ¼ãƒˆçµ±ä¸€]ãƒœã‚¿ãƒ³
 Private Sub cmdExecute_Click()
     If Not getFormValue Then
         Call actionFinisher
     End If
 End Sub
 
-'[•s—v‚È–¼‘O‚Ì’è‹`‚ğíœ]ƒ{ƒ^ƒ“
+'[ä¸è¦ãªåå‰ã®å®šç¾©ã‚’å‰Šé™¤]ãƒœã‚¿ãƒ³
 Private Sub cmdFunc1_Click()
     Call removeNameDefinition
 End Sub
+Private Sub CommandButton1_Click()
+    Call removeNameDefinition2
+End Sub
 
-'[”ñ•\¦ƒV[ƒgƒ`ƒFƒbƒN]ƒ{ƒ^ƒ“
+'[éè¡¨ç¤ºã‚·ãƒ¼ãƒˆãƒã‚§ãƒƒã‚¯]ãƒœã‚¿ãƒ³
 Private Sub cmdFunc2_Click()
     Call checkUnhideSheets
 End Sub
 
-'[‰üƒy[ƒW‰ğœ]ƒ{ƒ^ƒ“
+'[æ”¹ãƒšãƒ¼ã‚¸è§£é™¤]ãƒœã‚¿ãƒ³
 Private Sub cmdFunc3_Click()
     Call resetAllPageBreaks
 End Sub
 
-'[ƒV[ƒg–¼ˆê——o—Í]ƒ{ƒ^ƒ“
+'[ã‚·ãƒ¼ãƒˆåä¸€è¦§å‡ºåŠ›]ãƒœã‚¿ãƒ³
 Private Sub cmdFunc4_Click()
     Call createSheetList
 End Sub
 
-'[•ûŠá†ƒV[ƒg’Ç‰Á]ƒ{ƒ^ƒ“
+'[æ–¹çœ¼ç´™ã‚·ãƒ¼ãƒˆè¿½åŠ ]ãƒœã‚¿ãƒ³
 Private Sub cmdFunc5_Click()
     Call createGraphPaper
 End Sub
 
-'[‘I‘ğ”ÍˆÍ‚Ì‚Ó‚è‚ª‚È‚ğ‚Ü‚Æ‚ß‚Äíœ]ƒ{ƒ^ƒ“
+'[é¸æŠç¯„å›²ã®ãµã‚ŠãŒãªã‚’ã¾ã¨ã‚ã¦å‰Šé™¤]ãƒœã‚¿ãƒ³
 Private Sub cmdFunc6_Click()
-    Call removePhoneticCharacters
+'    Call removePhoneticCharacters
+    Call removeDocumentInformation
 End Sub
 
-'[ƒy[ƒWİ’è]ƒ{ƒ^ƒ“
+Private Sub cmdFunc7_Click()
+    Call removeStyles
+End Sub
+
+'[ãƒšãƒ¼ã‚¸è¨­å®š]ãƒœã‚¿ãƒ³
 Private Sub cmdPageSet_Click()
     Call setPageStyle(frmMain.cmbPageList.ListIndex)
 End Sub
 
-'[C—¹]ƒ{ƒ^ƒ“
+'[çµ‚äº†]ãƒœã‚¿ãƒ³
 'Private Sub cmdEnd_Click()
 '    End
 'End Sub
+
+'TODO: Application.EnableCancelKey
