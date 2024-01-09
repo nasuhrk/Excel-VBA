@@ -1,10 +1,10 @@
 Attribute VB_Name = "modMain"
 Option Explicit
 
-'–Ú·ü‚Ì•\¦/”ñ•\¦
+'ç›®ç››ç·šã®è¡¨ç¤º/éè¡¨ç¤º
 Dim display_gridlines As Boolean
 
-'ƒAƒNƒeƒBƒu ƒEƒBƒ“ƒhƒE‚Ìƒrƒ…[ƒ‚[ƒh
+'ã‚¢ã‚¯ãƒ†ã‚£ãƒ– ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ“ãƒ¥ãƒ¼ãƒ¢ãƒ¼ãƒ‰
 Dim active_window_view(3) As Integer
 
 ' ============================================================
@@ -12,7 +12,7 @@ Dim active_window_view(3) As Integer
 ' ============================================================
 Public Sub ExcelFinisher_START()
 '
-    'ƒtƒH[ƒ€‚ğ•\¦
+    'ãƒ•ã‚©ãƒ¼ãƒ ã‚’è¡¨ç¤º
     frmMain.Show vbModeless
 
 End Sub
@@ -22,21 +22,21 @@ End Sub
 ' ============================================================
 Function setSheetValue()
 '
-    '–Ú·ü‚Ì•\¦/”ñ•\¦
-    display_gridlines = True '•\¦
+    'ç›®ç››ç·šã®è¡¨ç¤º/éè¡¨ç¤º
+    display_gridlines = False 'True or False
     
-    'ƒAƒNƒeƒBƒu ƒEƒBƒ“ƒhƒE‚Ìƒrƒ…[ƒ‚[ƒh
-    active_window_view(0) = xlNormalView
+    'ã‚¢ã‚¯ãƒ†ã‚£ãƒ– ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ“ãƒ¥ãƒ¼ãƒ¢ãƒ¼ãƒ‰
+    active_window_view(0) = xlPageBreakPreview 'xlNormalView or xlPageBreakPreview
     
-    '•\¦”{—¦ (•W€)
+    'è¡¨ç¤ºå€ç‡ (æ¨™æº–)
     active_window_view(xlNormalView) = 100
     
-    '•\¦”{—¦ (‰üƒy[ƒW ƒvƒŒƒrƒ…[)
-    active_window_view(xlPageBreakPreview) = 60
+    'è¡¨ç¤ºå€ç‡ (æ”¹ãƒšãƒ¼ã‚¸ ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼)
+    active_window_view(xlPageBreakPreview) = 100 'Default:60
     
-    '•\¦”{—¦ (ƒy[ƒW ƒŒƒCƒAƒEƒg ƒrƒ…[)
+    'è¡¨ç¤ºå€ç‡ (ãƒšãƒ¼ã‚¸ ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ ãƒ“ãƒ¥ãƒ¼)
     active_window_view(xlPageLayoutView) = 100
-
+    
 End Function
 
 ' ============================================================
@@ -44,29 +44,30 @@ End Function
 ' ============================================================
 Function getSheetValue()
 '
-    '–Ú·ü‚Ì•\¦/”ñ•\¦
+    'ç›®ç››ç·šã®è¡¨ç¤º/éè¡¨ç¤º
     display_gridlines = ActiveWindow.DisplayGridlines
         
-    'ƒAƒNƒeƒBƒu ƒEƒBƒ“ƒhƒE‚Ìƒrƒ…[ƒ‚[ƒh
+    'ã‚¢ã‚¯ãƒ†ã‚£ãƒ– ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ“ãƒ¥ãƒ¼ãƒ¢ãƒ¼ãƒ‰
     active_window_view(0) = ActiveWindow.View
     
-    '•\¦”{—¦ (•W€)
+    'è¡¨ç¤ºå€ç‡ (æ¨™æº–)
     If ActiveWindow.View = xlNormalView Then
         active_window_view(xlNormalView) = ActiveWindow.Zoom
     End If
     
-    '•\¦”{—¦ (‰üƒy[ƒW ƒvƒŒƒrƒ…[)
+    'è¡¨ç¤ºå€ç‡ (æ”¹ãƒšãƒ¼ã‚¸ ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼)
     If ActiveWindow.View = xlPageBreakPreview Then
-        active_window_view(xlPageBreakPreview) = ActiveWindow.Zoom
+        active_window_view(xlPageBreakPreview) = a
+        ctiveWindow.Zoom
     End If
     
-    '•\¦”{—¦ (ƒy[ƒW ƒŒƒCƒAƒEƒg ƒrƒ…[)
+    'è¡¨ç¤ºå€ç‡ (ãƒšãƒ¼ã‚¸ ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ ãƒ“ãƒ¥ãƒ¼)
     If ActiveWindow.View = xlPageLayoutView Then
         active_window_view(xlPageLayoutView) = ActiveWindow.Zoom
     End If
     
-    'Œ‹‰Ê•\¦
-    MsgBox "’l‚ğæ“¾‚µ‚Ü‚µ‚½", vbInformation
+    'çµæœè¡¨ç¤º
+    MsgBox "å€¤ã‚’å–å¾—ã—ã¾ã—ãŸ", vbInformation
 
 End Function
 
@@ -84,6 +85,10 @@ Function setFormValue()
     frmMain.txtWindoView1.Text = active_window_view(xlNormalView)
     frmMain.txtWindoView2.Text = active_window_view(xlPageBreakPreview)
     frmMain.chkGridlines.Value = display_gridlines
+
+    ' test
+    frmMain.CheckBox1.Value = False
+    frmMain.CheckBox2.Value = False
 
 End Function
 
@@ -109,8 +114,8 @@ Function getFormValue() As Boolean
     
     If Not (IsNumeric(view1) And IsNumeric(view2)) Then
     
-        '“ü—Í’lƒGƒ‰[
-        MsgBox "“ü—Í’l‚ğ³‚µ‚­“ü—Í‚µ‚Ä‚­‚¾‚³‚¢", vbExclamation
+        'å…¥åŠ›å€¤ã‚¨ãƒ©ãƒ¼
+        MsgBox "å…¥åŠ›å€¤ã‚’æ­£ã—ãå…¥åŠ›ã—ã¦ãã ã•ã„", vbExclamation
         getFormValue = True
         
         If Not IsNumeric(view1) Then
@@ -136,7 +141,7 @@ Function setPageList()
 '
     Dim items As Variant
     
-    items = Array("‚`‚Si‰¡j", "‚`‚Sicj", "‚`‚Ri‰¡j")
+    items = Array("ï¼¡ï¼”ï¼ˆæ¨ªï¼‰", "ï¼¡ï¼”ï¼ˆç¸¦ï¼‰", "ï¼¡ï¼“ï¼ˆæ¨ªï¼‰")
     
     frmMain.cmbPageList.AddItem (items(0))
     frmMain.cmbPageList.AddItem (items(1))
@@ -152,38 +157,43 @@ Function actionFinisher()
     Dim hiddenFlg As Boolean
     Dim i As Integer
     
-    'ˆ—‚Ì‚‘¬‰»(ƒIƒ“)
+    'å‡¦ç†ã®é«˜é€ŸåŒ–(ã‚ªãƒ³)
     Call screenUpdating(True)
         
-    'ƒ^ƒuƒo[‚ğ‹K’èƒTƒCƒY‚Éİ’è
+    'ã‚¿ãƒ–ãƒãƒ¼ã‚’è¦å®šã‚µã‚¤ã‚ºã«è¨­å®š
     ActiveWindow.TabRatio = 0.6
     
     For i = Sheets.Count To 1 Step -1
         
-        '”ñ•\¦ƒV[ƒg‚ğˆê“I‚É•\¦
+        'éè¡¨ç¤ºã‚·ãƒ¼ãƒˆã‚’ä¸€æ™‚çš„ã«è¡¨ç¤º
         hiddenFlg = False
         If (Sheets(i).Visible = False) Then
             Sheets(i).Visible = True
             hiddenFlg = True
         End If
     
-        '‘ÎÛ‚ÌƒV[ƒg‘I‘ğ
+        'å¯¾è±¡ã®ã‚·ãƒ¼ãƒˆé¸æŠ
         Sheets(i).Select
         
         Call sheetCleanup
     
-        'ˆê“I‚É•\¦‚µ‚½ƒV[ƒg‚ğŒ³‚É–ß‚·
+        'ä¸€æ™‚çš„ã«è¡¨ç¤ºã—ãŸã‚·ãƒ¼ãƒˆã‚’å…ƒã«æˆ»ã™
         If (hiddenFlg = True) Then
             Sheets(i).Visible = False
         End If
     
+    
+'â˜…â˜…â˜…å®Ÿé¨“
+        resetAllPageBreaks 'æ”¹ãƒšãƒ¼ã‚¸è§£é™¤ (8/4è¿½åŠ )
+    
+    
     Next i
         
-    'ˆ—‚Ì‚‘¬‰»(ƒIƒt)
+    'å‡¦ç†ã®é«˜é€ŸåŒ–(ã‚ªãƒ•)
     Call screenUpdating(False)
     
-    'Œ‹‰Ê•\¦
-    MsgBox "Š®—¹‚µ‚Ü‚µ‚½", vbInformation
+    'çµæœè¡¨ç¤º
+    MsgBox "å®Œäº†ã—ã¾ã—ãŸ", vbInformation
     
 End Function
 
@@ -194,10 +204,10 @@ Private Sub sheetCleanup()
 '
     Dim r, c
 
-    'ƒEƒBƒ“ƒhƒE˜g‚ÌŒÅ’è’l‚ğŠm”F
+    'ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æ ã®å›ºå®šå€¤ã‚’ç¢ºèª
     With ActiveWindow
         If 1 < .Panes.Count() Then
-            ' ŒÅ’èˆÊ’u‚ğæ“¾
+            ' å›ºå®šä½ç½®ã‚’å–å¾—
             r = .SplitRow + .Panes(1).ScrollRow
             c = .SplitColumn + .Panes(1).ScrollColumn
         Else
@@ -206,40 +216,40 @@ Private Sub sheetCleanup()
         End If
     End With
     
-    'ƒy[ƒW ƒŒƒCƒAƒEƒg ƒrƒ…[
+    'ãƒšãƒ¼ã‚¸ ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ ãƒ“ãƒ¥ãƒ¼
     ActiveWindow.View = xlPageLayoutView
     ActiveWindow.Zoom = active_window_view(xlPageLayoutView)
    
     If active_window_view(0) = xlNormalView Then
-        '‰üƒy[ƒW ƒvƒŒƒrƒ…[
+        'æ”¹ãƒšãƒ¼ã‚¸ ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
         ActiveWindow.View = xlPageBreakPreview
         ActiveWindow.Zoom = active_window_view(xlPageBreakPreview)
-        '•W€
+        'æ¨™æº–
         ActiveWindow.View = xlNormalView
         ActiveWindow.Zoom = active_window_view(xlNormalView)
     Else
-        '•W€
+        'æ¨™æº–
         ActiveWindow.View = xlNormalView
         ActiveWindow.Zoom = active_window_view(xlNormalView)
-        '‰üƒy[ƒW ƒvƒŒƒrƒ…[
+        'æ”¹ãƒšãƒ¼ã‚¸ ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
         ActiveWindow.View = xlPageBreakPreview
         ActiveWindow.Zoom = active_window_view(xlPageBreakPreview)
     End If
 
-    'ƒEƒBƒ“ƒhƒE˜g‚ÌŒÅ’è’l‚ğ•œŒ³
+    'ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æ ã®å›ºå®šå€¤ã‚’å¾©å…ƒ
     If r <> 0 And c <> 0 Then
         Cells(r, c).Select
         ActiveWindow.FreezePanes = True
     End If
 
-    '–Ú·ü(˜gü)‚ğ”ñ•\¦
+    'ç›®ç››ç·š(æ ç·š)ã‚’éè¡¨ç¤º
     ActiveWindow.DisplayGridlines = display_gridlines
     
-    'ƒXƒNƒ[ƒ‹ƒo[‚ğ‰ŠúˆÊ’u‚Éİ’è
+    'ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã‚’åˆæœŸä½ç½®ã«è¨­å®š
     ActiveWindow.ScrollColumn = 1
     ActiveWindow.ScrollRow = 1
     
-    'ƒJ[ƒ\ƒ‹‚ğ¶ã‚Éİ’è
+    'ã‚«ãƒ¼ã‚½ãƒ«ã‚’å·¦ä¸Šã«è¨­å®š
     Cells(1, 1).Select
 
 End Sub
@@ -250,14 +260,14 @@ End Sub
 Private Sub screenUpdating(ByVal mode As Boolean)
 '
     If mode Then
-        'ˆ—‚Ì‚‘¬‰»(ƒIƒ“)
+        'å‡¦ç†ã®é«˜é€ŸåŒ–(ã‚ªãƒ³)
         With Application
             .screenUpdating = False
             .EnableEvents = False
             .Calculation = xlCalculationManual
         End With
     Else
-        'ˆ—‚Ì‚‘¬‰»(ƒIƒt)
+        'å‡¦ç†ã®é«˜é€ŸåŒ–(ã‚ªãƒ•)
         With Application
             .screenUpdating = True
             .EnableEvents = True
