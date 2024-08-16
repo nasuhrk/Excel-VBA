@@ -23,7 +23,7 @@
 ## インストール
 
 1. PERSONAL.XLSB を下記に配置する。
-C:\Users\<Username>\AppData\Roaming\Microsoft\Excel\XLSTART\
+%userprofile%\AppData\Roaming\Microsoft\Excel\XLSTART\
 
 ## テスト
 
